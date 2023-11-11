@@ -16,6 +16,8 @@ public class Manage {
     WebDriver driver;
     Service service;
 
+
+
     @BeforeEach
     public void driverSetup() {
 
@@ -47,7 +49,6 @@ public class Manage {
     Cookie cookieNamed = driver.manage().getCookieNamed("session-id");
     driver.manage().deleteCookieNamed("session-id");
     Assertions.assertEquals(6, driver.manage().getCookies().size(), "Number of cookies is not what expected.");
-
 
     driver.manage().deleteAllCookies();
     Assertions.assertEquals(0, driver.manage().getCookies().size(), "Number of cookies is..." );
