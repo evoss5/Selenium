@@ -7,9 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class FindingObjects {
+public class Finding_elements {
     WebDriver driver;
     Service service;
+
 
     @BeforeEach
     public void beforeTest() {
@@ -19,16 +20,13 @@ public class FindingObjects {
         System.setProperty(service.getDriver(), service.chromeDriverURL());
         driver.get(service.getURL());
         driver.manage().window().maximize();
-
     }
 
-@Test
-    public void findingElements() {
-        driver.findElement(By.id("searchInput"));
-        driver.findElement(By.name("search"));
-        driver.findElement(By.className("screen-reader-text"));
 
+    @Test
+    public void findingElementsByLinkText() {
+        driver.findElement(By.linkText("Utwórz konto"));
+        driver.findElement(By.partialLinkText("Zaloguj"));
+
+    }
 }
-
-}
-
