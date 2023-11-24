@@ -39,7 +39,7 @@ public class Asercja {
 
     @Test
     public void Test2 () {
-        driver.findElement(By.)
+
 
     }
 }
