@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -15,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class Wpisywanie {
     WebDriver driver;
     Service service;
+
+
 
     @BeforeMethod
     public void beforeTest() {
@@ -45,6 +48,9 @@ public class Wpisywanie {
 
         driver.findElement(By.xpath("//div//h1/following-sibling::div"));
         Assertions.assertDoesNotThrow(() -> driver.findElement(By.xpath("//div//h1/following-sibling::div")), "The account is not valid");
+
+
+
 
 
     }

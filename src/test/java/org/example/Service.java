@@ -23,7 +23,7 @@ public class Service {
 
 
     public String getURL() {
-        return "https://pl.wikipedia.org/wiki/Wikipedia:Strona_g%C5%82%C3%B3wna";
+        return "http://localhost:8080/";
     }
 
     public String chromeDriverURL() {
