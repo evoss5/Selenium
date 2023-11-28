@@ -2,6 +2,7 @@ package org.example.Interakcje_z_elementami;
 
 import Pages.FirstPage;
 import org.example.Service;
+import org.junit.jupiter.api.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,6 +31,7 @@ public class Wpisywanie2 {
         System.setProperty(service.getDriver(), service.chromeDriverURL());
         driver.get(service.getURL());
         driver.manage().window().maximize();
+        webDriverWait = new WebDriverWait(driver, TimeUnit.SECONDS.toSeconds(5));
     }
 
 
@@ -44,6 +46,8 @@ public class Wpisywanie2 {
         firstPage.addProductToCart();
         firstPage.cartIconStatusCheck();
         firstPage.timeoutForPage();
+        firstPage.timeoutForPage();
+
         firstPage.goToCheckOutClick();
 
     }

@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,14 +31,6 @@ public class FirstPage extends BasicPage {
     WebElement goToCheckOut;
 
 
-
-
-
-
-
-
-
-
     public void searchFieldInsertText() {
 
         webDriverWait.until(ExpectedConditions.elementToBeClickable(searchField));
@@ -52,14 +45,17 @@ public class FirstPage extends BasicPage {
     public void searchButtonClick() {
         searchButton.click();
     }
+
     public void cartIconStatusCheck() {
         cartIcon.click();
     }
+
     public void goToCheckOutClick() {
         goToCheckOut.click();
     }
+
     public void timeoutForPage() {
-        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+        webDriverWait.until(ExpectedConditions.numberOfElementsToBe(By.className("blockUI"), 0));
 
     }
 }
