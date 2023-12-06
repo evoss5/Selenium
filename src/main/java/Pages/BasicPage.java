@@ -4,14 +4,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class BasicPage {
     protected WebDriver driver;
-    protected WebDriverWait webDriverWait;
+    protected WebDriverWait wait;
     private static final int TIMEOUT = 10;
 
     public BasicPage(WebDriver driver) {
         this.driver = driver;
-        webDriverWait = new WebDriverWait(driver, TIMEOUT);
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
         PageFactory.initElements(driver, this);
     }
 }
+
