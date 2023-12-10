@@ -18,17 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
         private WebDriver driver;
 
-        @Test
 
-        @BeforeMethod
-        public void beforeTest() {
 
-            driver = new ChromeDriver();
-            service = new Service(driver);
-            System.setProperty(service.getDriver(), service.chromeDriverURL());
-            driver.get(service.getURL());
-            driver.manage().window().maximize();
-        }
+
 
         @Test
         public void myFirstTest() {

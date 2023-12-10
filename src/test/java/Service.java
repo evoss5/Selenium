@@ -1,58 +1,46 @@
-package org.example;
-
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeMethod;
+
+import java.time.Duration;
 
 public class Service {
+
     WebDriver driver;
+    Service service;
     WebDriverWait webDriverWait;
 
     public Service(WebDriver driver) {
         this.driver = driver;
-        webDriverWait = new WebDriverWait(driver, 15);
         PageFactory.initElements(driver, this);
     }
-
 
     public String getDriver() {
         return "C:/driver/chromedriver.exe";
     }
 
-
     public String getURL() {
-        return "http://localhost:8080";
+        return "http://localhost:3000/";
+    }
+    public String getURL2() {
+        return "http://przyklady.javastart.pl/jpetstore/";
     }
 
     public String chromeDriverURL() {
         return "webdriver.chrome.driver";
-
     }
 
-    public void driverSetup() {
-
-
-        System.setProperty("webdriver.chrome.driver", "C:/driver/chromedriver.exe");
+    @BeforeMethod
+    public void beforeTest() {
 
         driver = new ChromeDriver();
+        service = new Service(driver);
+        System.setProperty(service.getDriver(), service.chromeDriverURL());
+        driver.get(service.getURL());
         driver.manage().window().maximize();
-        driver.navigate().to("https://www.amazon.com");
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        Assertions.assertEquals(7, driver.manage().getCookies().size());
 
 
     }
 }
-
-
-
-
-
-
