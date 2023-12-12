@@ -1,5 +1,7 @@
 package org.example.Selenium;
 
+import Pages.BasicPage;
+import Pages.CartPage;
 import org.example.Service;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -16,9 +18,16 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Testy {
+
+
     WebDriver driver;
     Service service;
     WebDriverWait wait;
+
+    BasicPage page;
+    CartPage cart;
+
+
 
 
     @BeforeMethod
@@ -26,9 +35,14 @@ public class Testy {
 
         driver = new ChromeDriver();
         service = new Service(driver);
+        page = new BasicPage(driver);
         System.setProperty(service.getDriver(), service.chromeDriverURL());
         driver.get(service.getURL());
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+
+        ;
 
     }
 
@@ -90,23 +104,71 @@ public class Testy {
 
     @Test
     public void loginTest() {
-            driver.get(service.getURL() + "/my-account/");
+        driver.get(service.getURL() + "/my-account/");
 
-            driver.findElement(By.xpath("//input[@id='username']")).sendKeys("admin");
-            driver.findElement(By.xpath("//input[@id='password']")).sendKeys("admin");
-            WebElement loginButton = driver.findElement(By.xpath("//button[@name='login']"));
-            Assertions.assertTrue(loginButton.isDisplayed());
+        driver.findElement(By.xpath("//input[@id='username']")).sendKeys("admin");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("admin");
+        WebElement loginButton = driver.findElement(By.xpath("//button[@name='login']"));
+        Assertions.assertTrue(loginButton.isDisplayed());
 
-           WebElement rememberMeCheckBox = driver.findElement(By.xpath("//input[@id=\"rememberme\"]"));
-           rememberMeCheckBox.click();
+        WebElement rememberMeCheckBox = driver.findElement(By.xpath("//input[@id=\"rememberme\"]"));
+        rememberMeCheckBox.click();
 
-           boolean isItSelected = rememberMeCheckBox.isSelected();
-           Assertions.assertTrue(isItSelected);
+        boolean isItSelected = rememberMeCheckBox.isSelected();
+        Assertions.assertTrue(isItSelected);
 
 
-
-        }
     }
+
+    @Test
+    public void iFrameTest() throws InterruptedException {
+        page = new BasicPage(driver);
+        cart = new CartPage(driver);
+
+        driver.get(service.getURL() + "/my-account/");
+
+        driver.findElement(By.xpath("//input[@id='username']")).sendKeys("admin");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("admin");
+        WebElement loginButton = driver.findElement(By.xpath("//button[@name='login']"));
+        Assertions.assertTrue(loginButton.isDisplayed());
+        loginButton.click();
+        driver.findElement(By.xpath("//aside[@id='block-12']")).click();
+        cart.clickGoTocheckout();
+        driver.findElement(By.xpath("//input[@id='billing_first_name']")).sendKeys("admin");
+        driver.findElement(By.xpath("//input[@id='billing_last_name']")).sendKeys("admin");
+        driver.findElement(By.xpath("//input[@id='billing_postcode']")).sendKeys("11222");
+        driver.findElement(By.xpath("//input[@id='billing_city']")).sendKeys("randomname");
+        driver.findElement(By.xpath("//input[@id='billing_phone']")).sendKeys("231344412");
+        driver.findElement(By.xpath("//input[@id=\"billing_address_1\"]")).sendKeys("Warszawa");
+        WebElement frame = driver.findElement(By.xpath("//div[@id='stripe-card-element']//iframe"));
+        driver.switchTo().frame(frame);
+        driver.findElement(By.xpath("//input[@name='cardnumber' and @data-elements-stable-field-name='cardNumber']")).sendKeys("2388383838383899");
+        driver.switchTo().defaultContent();
+        WebElement expiryDateFrame = driver.findElement(By.xpath("//div[@id='stripe-exp-element']//iframe"));
+        driver.switchTo().frame(expiryDateFrame);
+        driver.findElement(By.xpath("//input[@name='exp-date']")).sendKeys("0224");
+        driver.switchTo().defaultContent();
+        WebElement cvcCode = driver.findElement(By.xpath("//div[@id='stripe-cvc-element']//iframe"));
+        driver.switchTo().frame(cvcCode);
+        driver.findElement(By.xpath("//input[@name='cvc']")).sendKeys("762");
+        driver.switchTo().defaultContent();
+        driver.findElement(By.xpath("//button[@id=\"place_order\"]")).click();
+        WebElement messege = driver.findElement(By.xpath("//ul[@class='woocommerce-error']"));
+        boolean isMessageVisible = messege.isDisplayed();
+        Assertions.assertEquals("Billing Postcode / ZIP is not a valid postcode / ZIP.", messege.getText());
+        Assertions.assertTrue(isMessageVisible);
+
+
+
+    }
+}
+
+
+
+
+
+
+
 
 
 

@@ -10,9 +10,17 @@ public class BasicPage {
     private static final int TIMEOUT = 10;
 
     public BasicPage(WebDriver driver) {
-        this.driver = driver;
-        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
-        PageFactory.initElements(driver, this);
+            this.driver = driver;
+            wait = new WebDriverWait(driver, TIMEOUT);
+            PageFactory.initElements(driver, this);
+        }
+
+
+
+
+
     }
-}
+
+
+
 
