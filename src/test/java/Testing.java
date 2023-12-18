@@ -1,9 +1,12 @@
 import Pages.*;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -12,6 +15,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class Testing {
     WebDriver driver;
     Service service;
+    WebDriverWait wait;
 
 
     @BeforeMethod
@@ -72,10 +76,7 @@ public class Testing {
         loginPage.clickOnLoginButton();
         FooterPage footerPage = new FooterPage(driver);
         Assertions.assertTrue(footerPage.isBannerAfterLoginDisplayed());
-
-
-
-
+        
     }
 
 
